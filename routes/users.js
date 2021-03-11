@@ -97,7 +97,7 @@ router.put('/updateOneUser', async function(req,res,next){
   console.log("--------req.body",req.body);
 
   var userToUpdate = await userModel.updateOne(
-    {token:req.query.token},
+    {token:req.body.token},
     {pseudo: req.body.pseudo,
       nationality: req.body.nationality,
       lastName: req.body.lastname,
