@@ -7,15 +7,18 @@ var eventSchema = mongoose.Schema({
     name: String,
     type: String,
     description: String,
-    image: String,
-    eventState: String,
+    image: Array,
+    state: String,
     date: Date,
     hour: Number,
     address: String,
     city: String,
     postalCode: Number,
     maxUser: Number,
-    isVisible:Boolean
+    ageChildren: Number,
+    numbRegisteredUsers: Number,
+    isVisible:Boolean,
+    dateCreatedEvent: Date
    });
 
 var eventModel=mongoose.model ('event',eventSchema)
