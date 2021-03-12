@@ -65,6 +65,7 @@ router.post('/signIn',async function(req, res, next){
 
   console.log("------------req.body signIn",req.body);
   var error = [];
+  var login = false;
 
   if (req.body.email==""||req.body.password==""){
     error.push("champs vides")

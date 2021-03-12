@@ -64,4 +64,56 @@ res.json({saveEvent,result});
 
 });
 
+
+
+// route pour changer des infos d'un évènement
+router.put('/updateEvent', async function(req,res,next){
+    console.log("-----------req.body route updateEvent",req.body);
+
+
+    var eventUpdated = await eventModel.findOneAndUpdate(
+        {_id:req.body.idEvent},
+        {contactName: req.body.contactName, 
+        contactEmail: req.body.contactEmail, 
+        name: req.body.name,
+        type: req.body.type,
+        description: req.body.description,
+        // images:[],
+        state: req.body.state,
+        // date: req.body.date,
+        hour: req.body.hour,
+        address: req.body.address,
+        city: req.body.city,
+        postalCode: req.body.postalcode,
+        maxUser: req.body.maxUser,
+        ageChildren: req.body.ageChildren,
+        numbRegisteredUsers: req.body.numbRegisteredUsers,
+        isVisible:true,
+        dateCreatedEvent: new Date()
+        })
+
+    // pour renvoyer le nouveau évènement a partir de la BDD; pas obligatoire
+    var newEvent = await eventModel.findOne({_id:req.body.idEvent});
+    console.log("-----------newEvent",newEvent);
+
+      
+res.json({newEvent})
+
+});
+
+
+// route pour suuprimer un évènement de la base de données
+// autre solution : passer le isvisible a false
+router.delete('/deleteEvent', async function(req, res, next){
+    console.log("---------req.body route delete",req.body);
+
+    let resultDelete = false;
+    var deletedEvent = await eventModel.deleteOne({_id:req.body.idEvent})
+
+    deletedEvent.length==null ? resultDelete=true : resultDelete=false;
+    
+    console.log("---------resultDelete",resultDelete);
+res.json({resultDelete})    
+})
+
 module.exports = router;
