@@ -1,11 +1,13 @@
 import {createGlobalStyle} from "styled-components";
 
-import Colors from './Colors'
+import colors from './colors';
+
 
 const GlobalStyle = createGlobalStyle`
 
-// ejemple d'utilisation
-backbround: ${Colors.rouge}
+   
+    h1: green;
+    
 
 
 `

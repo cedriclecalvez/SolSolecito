@@ -26,7 +26,7 @@ router.post('/signUp',async function(req, res, next){
     error.push('email existe déjà')
   }
 
-  if(req.body.pseudo==''
+  if(req.body.alias==''
   ||req.body.nationality==''
   ||req.body.lastname==''
   ||req.body.firstname==''
@@ -40,7 +40,7 @@ router.post('/signUp',async function(req, res, next){
     const cost = 10;
     const hash = bcrypt.hashSync(req.body.password, cost);
     const newUser = new userModel ({
-      pseudo: req.body.pseudo,
+      alias: req.body.alias,
       nationality: req.body.nationality,
       lastName: req.body.lastname,
       lastFirst: req.body.firstname,
@@ -72,12 +72,14 @@ router.post('/signIn',async function(req, res, next){
   }
 
   if (error.length==0){
-    var user= await userModel.findOne({email:req.body.email});
-    var password= req.body.password;
-    var token=user.token;
 
+    var user= await userModel.findOne({email:req.body.email});
+
+    var password= req.body.password;
+    
     // comparaison des passwords si user existe
     if (user){
+      var token=user.token;
       if (bcrypt.compareSync(password, user.password)) {
 
         login=true
@@ -88,6 +90,7 @@ router.post('/signIn',async function(req, res, next){
       }
     } else{
       error.push("email n'existe pas ou incorrect")
+      console.log("-----------------email n'existe pas ou incorrect")
     }
   }
 
@@ -99,7 +102,7 @@ router.put('/updateOneUser', async function(req,res,next){
 
   var userToUpdate = await userModel.updateOne(
     {token:req.body.token},
-    {pseudo: req.body.pseudo,
+    {alias: req.body.alias,
       nationality: req.body.nationality,
       lastName: req.body.lastname,
       lastFirst: req.body.firstname,
