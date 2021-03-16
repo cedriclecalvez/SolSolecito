@@ -12,6 +12,8 @@ import HomeScreen from './Pages/HomeScreen';
 // import MyEventScreen from './Pages/MyEventScreen';
 // import MyOtherEventScreen from './Pages/MyOtherEventScreen';
 import Footer from './Pages/Components/Footer'; 
+import Header from './Pages/Components/Header'; 
+
 
 
 function App() {
@@ -21,12 +23,16 @@ function App() {
       <Switch>
           <Route path="/" exact component={SignInScreen}/>
           <Route path="/SignUpScreen" exact component={SignUpScreen}/>
-          <Route path="/HomeScreen" exact component={HomeScreen}/>
-          {/* <Route path="/CreateEvent" exact component={CreateEvent}/>
-          <Route path="/EventScreen" exact component={EventScreen}/>
-          <Route path="/ProfilScreen" exact component={ProfilScreen}/>
-          <Route path="/MyEventScreen" exact component={MyEventScreen}/>
-          <Route path="/MyOtherEventScreen" exact component={MyOtherEventScreen}/> */}
+          <div>
+            <Header/>
+
+            <Route path="/HomeScreen" exact component={HomeScreen}/>
+            {/* <Route path="/CreateEvent" exact component={CreateEvent}/>
+            <Route path="/EventScreen" exact component={EventScreen}/>
+            <Route path="/ProfilScreen" exact component={ProfilScreen}/>
+            <Route path="/MyEventScreen" exact component={MyEventScreen}/>
+            <Route path="/MyOtherEventScreen" exact component={MyOtherEventScreen}/> */}
+          </div>
       </Switch>
 
       <Footer/>
