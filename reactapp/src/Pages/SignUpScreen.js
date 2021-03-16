@@ -48,11 +48,20 @@ export default function SignUp() {
 
   // initialisation des états
   const [aliasSignUp,setAliasSignUp]= useState("");
+  const [errorAlias,setErrorAlias]= useState(false);
   const [nacionalitySignUp,setNacionalitySignUp]= useState("");
+  const [errorNationality,setErrorNationality]= useState(false);
   const [firstNameSignUp,setFirstNameSignUp]= useState("");
+  const [errorFirstName,setErrorFirstName]= useState(false);
   const [lastNameSignUp,setLastNameSignUp]= useState("");
+  const [errorLastName,setErrorLastName]= useState(false);
   const [passwordSignUp,setPasswordSignUp]= useState("");
+  const [errorPassword,setErrorPassword]= useState(false);
   const [emailSignUp,setEmailSignUp]= useState("");
+  const [errorEmail,setErrorEmail]= useState(false);
+  const [cleanInputs,setCleanInputs]= useState(false);
+
+
   
 
 
@@ -60,6 +69,18 @@ export default function SignUp() {
 
   // fonction pour passer les infos au backend
   const handleSubmitSignUp = async () => {
+
+    // condition pour changer le style des inputs
+    if(aliasSignUp===""){setErrorAlias(true)}
+    if(nacionalitySignUp===""){setErrorNationality(true)}
+    if(firstNameSignUp===""){setErrorFirstName(true)}
+    if(lastNameSignUp===""){setErrorLastName(true)}
+    if(passwordSignUp===""){setErrorPassword(true)}
+    if(emailSignUp===""){setErrorEmail(true)}
+
+  
+
+    // envoie des données user vers le backend
     const dataToBackend = await fetch ('/users/SignUp',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -68,19 +89,13 @@ export default function SignUp() {
 
     const retourData = await dataToBackend.json()
     console.log("----------retourData du backend",retourData);
+
+
   }
 
 
   
-  // vider les champs après inscription
-  function cleanInputs() {
-    setAliasSignUp("");
-    setNacionalitySignUp("");
-    setFirstNameSignUp("");
-    setLastNameSignUp("");
-    setPasswordSignUp("");
-    setEmailSignUp("");
-  }
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -99,79 +114,85 @@ export default function SignUp() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                error={errorAlias} // si il y a une erreur, error = error
                 autoComplete="fname"
                 name="alias"
                 variant="outlined"
                 required
                 fullWidth
-                id="alias"
-                label="Alias"
+                label={!errorAlias ? "Alias" : "error"}
+                id={!errorAlias ? "alias" : "outlined-error"}
                 autoFocus
-                onChange={(e)=> setAliasSignUp(e.target.value)}
+                onChange={(e)=> {setErrorAlias(false) ; setAliasSignUp(e.target.value)}}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={errorNationality} // si il y a une erreur, error = error
                 autoComplete="fname"
                 name="nationality"
                 variant="outlined"
                 required
                 fullWidth
-                id="nationality"
-                label="Nacionalidad"
+                label={!errorNationality ? "Nacionalidad" : "error"}
+                id={!errorNationality ? "nationality" : "outlined-error"}
                 autoFocus
-                onChange={(e)=> setNacionalitySignUp(e.target.value)}
+                onChange={(e)=> {setErrorNationality(false) ; setNacionalitySignUp(e.target.value)}}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                error={errorFirstName} // si il y a une erreur, error = error
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="Nombre"
+                label={!errorFirstName ? "Nombre" : "error"}
+                id={!errorFirstName ? "firstName" : "outlined-error"}
                 autoFocus
-                onChange={(e)=> setFirstNameSignUp(e.target.value)}
+                onChange={(e)=> {setErrorFirstName(false) ; setFirstNameSignUp(e.target.value)}}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                error={errorLastName} // si il y a une erreur, error = error
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
-                label="Apellido"
+                label={!errorLastName ? "Apellido" : "error"}
+                id={!errorLastName ? "lastName" : "outlined-error"}
                 name="lastName"
                 autoComplete="lname"
-                onChange={(e)=> setLastNameSignUp(e.target.value)}
+                onChange={(e)=> {setErrorLastName(false) ; setLastNameSignUp(e.target.value)}}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={errorEmail} // si il y a une erreur, error = error
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Correo electronico"
+                label={!errorEmail ? "Correo electronico" : "error"}
+                id={!errorEmail ? "email" : "outlined-error"}
                 name="email"
                 autoComplete="email"
-                onChange={(e)=> setEmailSignUp(e.target.value)}
+                onChange={(e)=> {setErrorEmail(false) ;setEmailSignUp(e.target.value)}}
 
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={errorPassword} // si il y a une erreur, error = error
                 variant="outlined"
                 required
                 fullWidth
                 name="password"
-                label="Contraseña"
+                label={!errorPassword ? "Contraseña" : "error"}
+                id={!errorPassword ? "password" : "outlined-error"}
                 type="password"
-                id="password"
                 autoComplete="current-password"
-                onChange={(e)=> setPasswordSignUp(e.target.value)}
+                onChange={(e)=> {setErrorPassword(false) ;setPasswordSignUp(e.target.value)}}
 
               />
             </Grid>
@@ -187,7 +208,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=> {handleSubmitSignUp();cleanInputs()}}
+            onClick={()=>  handleSubmitSignUp() }
           >
             Registrarme
           </Button>

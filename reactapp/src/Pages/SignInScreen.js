@@ -51,13 +51,23 @@ export default function SignInScreen() {
   const [userExist,setUserExist] = useState (false);
   const [signInEmail,setSignInEmail] = useState ("");
   const [signInPassword,setSignInPassword] = useState ("");
+  const [errorEmail,setErrorEmail] = useState (false);
+  const [errorPassword,setErrorPassword] = useState (false);
+  
 
   console.log("----------------signInEmail",signInEmail);
   console.log("----------------signInPassword",signInPassword);
 
-
+  // fonction sur le clic
   const handleSubmitSignIn = async () => {
 
+    // condition pour changer le style des inputs si error
+    if(signInEmail==="") {setErrorEmail(true)};
+    if(signInPassword==="") {setErrorPassword(true)};
+    
+      
+    
+    // envoie des données au backend pour vérification
     const checkDataExist = await fetch('/users/signIn',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -69,7 +79,7 @@ export default function SignInScreen() {
 
 
     // changement d'état userExist
-    if(dataUser.login==true){
+    if(dataUser.login===true){
       setUserExist(true)
     } else {
       console.log("-----------setUserExist est resté a false",setUserExist);
@@ -82,6 +92,9 @@ export default function SignInScreen() {
     return <Redirect to='/HomeScreen'/>
   }
   
+
+
+
 
 
 
@@ -103,34 +116,38 @@ export default function SignInScreen() {
 
         <form className={classes.form} noValidate>
           <TextField
+            error={errorEmail} // si il y a une erreur, error = error
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Correo electronico"
+            id={!errorEmail ? "email" : "outlined-error"}
+            label={!errorEmail ? "Correo electronico" : "error"} 
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e)=> setSignInEmail(e.target.value)}
-
+            onChange={(e)=> {setErrorEmail(false) ; setSignInEmail(e.target.value)}}
           />
+
           <TextField
+            error={errorPassword} // si il y a une erreur, error = error
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Contraseña"
+            label={!errorPassword ? "Contraseña" : "error"} 
             type="password"
-            id="password"
+            id={!errorPassword ? "password" : "outlined-error"}
             autoComplete="current-password"
-            onChange={(e)=> setSignInPassword(e.target.value)}
+            onChange={(e)=> {setErrorPassword(false); setSignInPassword(e.target.value)}}
           />
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
           label="Seguir conectado"
           />
+
           <Button
             fullWidth
             variant="contained"
