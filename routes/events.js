@@ -40,7 +40,7 @@ router.post('/createEvent', async function(req, res, next){
             type: req.body.type,
             description: req.body.description,
             // images:[],
-            state: req.body.state,
+            // state: req.body.state,
             // date: req.body.date,
             hour: req.body.hour,
             address: req.body.address,

@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { Redirect } from 'react-router-dom';
 
 
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +12,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import HomeIcon from '@material-ui/icons/Home';
+
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme({
     typography: 
-        {h5: {fontStyle: 'italic', fontFamily:'Roboto'}}     
+        {h5: {fontStyle: 'italic', fontFamily:'Roboto', fontWeight:20},button: {fontStyle: 'italic', fontFamily:'Roboto'}}     
 })
 
 
@@ -36,10 +40,41 @@ const theme = createMuiTheme({
 export default function Header() {
     const classes = useStyles();
 
-    // button menu 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => {
+    const [toProfil, setToProfil] = useState(false);
+    const [toCreateEvent, setToCreateEvent] = useState(false);
+    const [toMyEvent, setToMyEvent] = useState(false);
+    const [toOtherEvent, setToOtherEvent] = useState(false);
+    const [toSignIn, setToSignIn] = useState(false);
+    const [toHomeScreen, setToHomeScreen] = useState(false);
+    
+    
+   
+
+   
+    if (toHomeScreen===true){
+        return <Redirect to='/HomeScreen'/>
+    }
+    if (toCreateEvent===true){
+        return <Redirect to='/CreateEvent'/>
+    }
+    if (toProfil===true){
+        return <Redirect to='/ProfilScreen'/>
+    }
+    if (toMyEvent===true){
+        return <Redirect to='/MyEventScreen'/>
+    }
+    if (toOtherEvent===true){
+        return <Redirect to='/MyOtherEventScreen'/>
+    }
+    if (toSignIn===true){
+        return <Redirect to='/'/>
+    }
+
+
+ // button menu 
+ const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     };
     //pour fermer au clic
@@ -48,43 +83,52 @@ export default function Header() {
     };
 
 
-
-
     return (
-    <div className={classes.root}>
-        <ThemeProvider theme={theme}>
-            <AppBar position="static">
-                <Toolbar>
+        <div className={classes.root}>
+            <ThemeProvider theme={theme}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Grid container spacing={3}>
+                            < Grid item xs={4}>
+                                {/* <Typography variant="h5" className={classes.title}>
+                                    <WbSunnyIcon />
+                                    <span> </span>
+                                    Sol Solecito
+                                </Typography> */}
+                                <WbSunnyIcon />  
+                                <Button variant="h5" color="inherit" onClick={(e)=>{setToHomeScreen(true)}}>Sol Solecito</Button>
+                            </Grid>
 
-                    <Typography variant="h5" className={classes.title}>
-                        <WbSunnyIcon />
-                        <span> </span>
-                        Sol Solecito
-                    </Typography>
-                    <Button color="inherit">Creacion de evento</Button>
-                    <div>
-                        <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
-                         Mi perfil <HomeIcon/>
-                        </Button>
-                        <Menu
-                            id="simple-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
-                            <MenuItem onClick={handleClose}>Mis eventos</MenuItem>
-                            <MenuItem onClick={handleClose}>Otros eventos</MenuItem>
-                            <MenuItem onClick={handleClose}>Desconectarse</MenuItem>
-                        </Menu>
-                    </div>
-                    
+                            <Grid item xs={4}>
+                                <Button color="inherit" fontStyle='italic' fontFamily='Roboto' onClick={(e)=>{setToCreateEvent(true)}} >Creacion de evento</Button>
+                            </Grid>
 
-                    
-                </Toolbar>
-            </AppBar>
-        </ThemeProvider>
-    </div>
+                            <Grid item xs={2}>
+                                <div display ="flex"alignItems="flex-end">
+                                    <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
+                                        Mi cuenta <HomeIcon/>
+                                    </Button>
+                                    <Menu
+                                        id="simple-menu"
+                                        anchorEl={anchorEl}
+                                        keepMounted
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleClose}
+                                    >
+                                        <MenuItem onClick={(e)=>{setToProfil(true);handleClose()}}>Mi perfil</MenuItem>
+                                        <MenuItem onClick={(e)=>{setToMyEvent(true);handleClose()}}>Mis eventos</MenuItem>
+                                        <MenuItem onClick={(e)=>{setToOtherEvent(true);handleClose()}}>Otros eventos</MenuItem>
+                                    </Menu>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={2} >
+                                <Button color="inherit" onClick={(e)=>{setToSignIn(true)}}>Desconectar</Button>
+                            </Grid>
+                        </Grid>
+                    </Toolbar>
+                </AppBar>
+            </ThemeProvider>
+        </div>
     );
     }

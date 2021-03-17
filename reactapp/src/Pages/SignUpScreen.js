@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -59,7 +60,7 @@ export default function SignUp() {
   const [errorPassword,setErrorPassword]= useState(false);
   const [emailSignUp,setEmailSignUp]= useState("");
   const [errorEmail,setErrorEmail]= useState(false);
-  const [cleanInputs,setCleanInputs]= useState(false);
+  const [responseBddOk,setResponseBddOk]= useState(false);
 
 
   
@@ -89,8 +90,13 @@ export default function SignUp() {
 
     const retourData = await dataToBackend.json()
     console.log("----------retourData du backend",retourData);
+    
+    setResponseBddOk(retourData.result);
 
-
+    
+  }
+  if(responseBddOk===true){
+    return <Redirect to='/HomeScreen'/>
   }
 
 
