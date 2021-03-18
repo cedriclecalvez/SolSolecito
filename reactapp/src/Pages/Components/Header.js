@@ -122,7 +122,7 @@ export default function Header() {
                                 </div>
                             </Grid>
 
-                            <Grid item xs={2} >
+                            <Grid item xs={2}  >
                                 <Button color="inherit" onClick={(e)=>{setToSignIn(true)}}>Desconectar</Button>
                             </Grid>
                         </Grid>

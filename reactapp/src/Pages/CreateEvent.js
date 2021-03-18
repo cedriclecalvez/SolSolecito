@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Header from './Components/Header'
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
+
 
 
 
@@ -52,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 // pour créer un event
-export default function CreateEvent() {
+export default function CreateEvent(props) {
   const classes = useStyles();
 
 
@@ -200,6 +202,7 @@ export default function CreateEvent() {
                             onChange={(e)=> {setErrorContactNameEvent(false) ; setContactNameEvent(e.target.value)}}
                         />
                         </Grid>
+                        
                         <Grid item xs={12}>
                         <TextField
                             error={errorContactEmailEvent} // si il y a une erreur, error = error
@@ -403,3 +406,19 @@ export default function CreateEvent() {
     </div>
   );
 }
+
+
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         onSubmitEvent: function(event) {
+//           dispatch( {type: 'infoCreateEvent', infoEvent: infoEvent} )
+//       }
+//     }
+//    }
+
+
+// export default connect(
+//     null,
+//     mapDispatchToProps
+// )(CreateEvent);

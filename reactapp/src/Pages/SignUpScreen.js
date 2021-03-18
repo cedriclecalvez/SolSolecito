@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 // pour s'inscrire
-export default function SignUp() {
+function SignUp(onSubmitToken) {
   const classes = useStyles();
 
 
@@ -92,6 +93,7 @@ export default function SignUp() {
     console.log("----------retourData du backend",retourData);
     
     setResponseBddOk(retourData.result);
+    onSubmitToken(retourData.token) // fonction pour envoyer le token provenant du backend
 
     
   }
@@ -132,6 +134,7 @@ export default function SignUp() {
                 onChange={(e)=> {setErrorAlias(false) ; setAliasSignUp(e.target.value)}}
               />
             </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 error={errorNationality} // si il y a une erreur, error = error
@@ -231,3 +234,19 @@ export default function SignUp() {
     </Container>
   );
 }
+
+
+
+// mise à disposition du token de l'utilisateur pour les autres composants à l'aide du store
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitToken: function (token) {
+      dispatch({ type: 'infoUser', token: token })
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);
