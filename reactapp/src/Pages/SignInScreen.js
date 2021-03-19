@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 
 import Avatar from '@material-ui/core/Avatar';
@@ -43,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 // formulaire pour se logger
-export default function SignInScreen() {
+function SignInScreen(props) {
+
+  
 
   const classes = useStyles();
 
@@ -78,9 +82,14 @@ export default function SignInScreen() {
     console.log("--------- réception du backend dataUser",dataUser);
 
 
+
     // changement d'état userExist
     if(dataUser.login===true){
       setUserExist(true)
+
+      props.onSubmitUserInfo(dataUser.user)
+      console.log("--------------dataUser.user",dataUser.user);
+
     } else {
       console.log("-----------setUserExist est resté a false",setUserExist);
 
@@ -179,3 +188,17 @@ export default function SignInScreen() {
     </Container>
   );
 }
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitUserInfo: function (user) {
+      dispatch({ type: 'infoUser', user: user })
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignInScreen);

@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -53,16 +54,20 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
+
+
 // pour créer un event
-export default function CreateEvent(props) {
+function CreateEvent(props) {
   const classes = useStyles();
+  console.log("-----------userInfo from store ,props.userInfo",props.userInfo);
 
 
   // initialisation des états
-  const [contactNameEvent,setContactNameEvent]= useState("");
+  const [contactNameEvent,setContactNameEvent]= useState(props.userInfo.lastName);
   const [errorContactNameEvent,setErrorContactNameEvent]= useState(false);
 
-  const [contactEmailEvent,setContactEmailEvent]= useState("");
+  const [contactEmailEvent,setContactEmailEvent]= useState(props.userInfo.email);
   const [errorContactEmailEvent,seterrorContactEmailEvent]= useState(false);
 
   const [nameEvent,setNameEvent]= useState("");
@@ -104,7 +109,11 @@ export default function CreateEvent(props) {
   const [responseBddOk,setResponseBddOk]= useState(false);
 
 
-  
+  // fonction du bouton retour vers HomeScreen
+  const [createOtherEvent,setCreateOtherEvent]= useState(false);
+  if(createOtherEvent===true){
+      return <Redirect to='/CreateEvent'/>
+  }
 
 
 
@@ -127,14 +136,15 @@ export default function CreateEvent(props) {
     if(maxUserEvent===""){setErrorSetMaxUserEvent(true)}
     if(ageChildrenEvent===""){setErrorAgeChildrenEvent(true)}
     
-
+    
   
 
     // envoie des données event vers le backend
     const dataToBackend = await fetch ('/events/CreateEvent',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `contactName=${contactNameEvent}
+      body: `participants=${props.userInfo._id}
+      &contactName=${contactNameEvent}
       &contactEmail=${contactEmailEvent}
       &name=${nameEvent}
       &type=${typeEvent}
@@ -146,7 +156,8 @@ export default function CreateEvent(props) {
       &city=${cityEvent}
       &postalCode=${postalCodeEvent}
       &maxUser=${maxUserEvent}
-      &ageChildren=${ageChildrenEvent}`
+      &ageChildren=${ageChildrenEvent}
+      &token=${props.userInfo.token}`
     })
 
     const retourData = await dataToBackend.json()
@@ -175,13 +186,13 @@ export default function CreateEvent(props) {
             <CssBaseline />
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h2">
-                        Sol Solecito
+                        Crea tu evento
                     </Typography>
                     <Avatar className={classes.avatar}>
                         <WbSunnyIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Crea tu evento ! Es facil !
+                        Es facil !
                     </Typography>
                     <Typography component="h2">
                         Llena todo el formulario y registralo
@@ -194,9 +205,9 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="contactName"
                             variant="outlined"
-                            required
                             fullWidth
-                            label={!errorContactNameEvent ? "Nombre del contacto" : "error"}
+                            required
+                            label={!errorContactNameEvent ? contactNameEvent : "error"}
                             id={!errorContactNameEvent ? "contactName" : "outlined-error"}
                             autoFocus
                             onChange={(e)=> {setErrorContactNameEvent(false) ; setContactNameEvent(e.target.value)}}
@@ -209,9 +220,9 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="contactEmail"
                             variant="outlined"
-                            required
                             fullWidth
-                            label={!errorContactEmailEvent ? "Email para contactarlo" : "error"}
+                            required
+                            label={!errorContactEmailEvent ? contactEmailEvent : "error"}
                             id={!errorContactEmailEvent ? "contactEmail" : "outlined-error"}
                             autoFocus
                             onChange={(e)=> {seterrorContactEmailEvent(false) ; setContactEmailEvent(e.target.value)}}
@@ -223,8 +234,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="name"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorNameEvent ? "Nombre del evento" : "error"}
                             id={!errorNameEvent ? "nameEvent" : "outlined-error"}
                             autoFocus
@@ -237,8 +248,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="description"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorDescriptionEvent ? "Descripciòn" : "error"}
                             id={!errorDescriptionEvent ? "description" : "outlined-error"}
                             autoFocus
@@ -251,8 +262,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="type"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorTypeEvent ? "Tipo del evento" : "error"}
                             id={!errorTypeEvent ? "type" : "outlined-error"}
                             autoFocus
@@ -265,8 +276,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="image"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorImageEvent ? "Imagen del evento" : "error"}
                             id={!errorImageEvent ? "image" : "outlined-error"}
                             autoFocus
@@ -279,8 +290,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="date"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorDateEvent ? "Fecha del evento" : "error"}
                             id={!errorDateEvent ? "date" : "outlined-error"}
                             autoFocus
@@ -293,8 +304,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="hour"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorHourEvent ? "Hora del evento" : "error"}
                             id={!errorHourEvent ? "hour" : "outlined-error"}
                             autoFocus
@@ -307,8 +318,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="address"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorAddressEvent ? "Direcciòn del evento" : "error"}
                             id={!errorAddressEvent ? "address" : "outlined-error"}
                             autoFocus
@@ -323,8 +334,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="postalCode"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorPostalCodeEvent ? "Codigo postal del evento" : "error"}
                             id={!errorPostalCodeEvent ? "postalCode" : "outlined-error"}
                             autoFocus
@@ -337,8 +348,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="city"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorCityEvent ? "Ciudad del evento" : "error"}
                             id={!errorCityEvent ? "city" : "outlined-error"}
                             autoFocus
@@ -353,8 +364,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="maxUser"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorMaxUserEvent ? "Max personas autorisadas en el evento" : "error"}
                             id={!errorMaxUserEvent ? "maxUser" : "outlined-error"}
                             autoFocus
@@ -367,8 +378,8 @@ export default function CreateEvent(props) {
                             autoComplete="fname"
                             name="ageChildren"
                             variant="outlined"
-                            required
                             fullWidth
+                            required
                             label={!errorAgeChildrenEvent ? "Edad de participantes" : "error"}
                             id={!errorAgeChildrenEvent ? "ageChildren" : "outlined-error"}
                             autoFocus
@@ -394,10 +405,10 @@ export default function CreateEvent(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                        <Link href="/" variant="body2">
-                            Ya tienes una cuenta? Iniciar sesiòn
-
-                        </Link>
+                            <Button  variant="body2" onClick={()=> setCreateOtherEvent(true)}>
+                                <AddIcon/> 
+                                Quieres crear otro evento? 
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>
@@ -406,6 +417,20 @@ export default function CreateEvent(props) {
     </div>
   );
 }
+
+
+function mapStateToProps(state) {
+    return {userInfo:state.userInfo}
+  }
+  export default connect(
+    mapStateToProps,
+    null 
+  )(CreateEvent);
+  
+
+
+
+
 
 
 

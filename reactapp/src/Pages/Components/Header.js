@@ -99,7 +99,7 @@ export default function Header() {
                                 <Button variant="h5" color="inherit" onClick={(e)=>{setToHomeScreen(true)}}>Sol Solecito</Button>
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs={4} >
                                 <Button color="inherit" fontStyle='italic' fontFamily='Roboto' onClick={(e)=>{setToCreateEvent(true)}} >Creacion de evento</Button>
                             </Grid>
 

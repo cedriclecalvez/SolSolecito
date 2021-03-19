@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 // pour s'inscrire
-function SignUp(onSubmitToken) {
+function SignUp(props) {
   const classes = useStyles();
 
 
@@ -93,7 +93,9 @@ function SignUp(onSubmitToken) {
     console.log("----------retourData du backend",retourData);
     
     setResponseBddOk(retourData.result);
-    onSubmitToken(retourData.token) // fonction pour envoyer le token provenant du backend
+    console.log("----------setResponseBddOk",setResponseBddOk);
+
+    props.onSubmitUserInfo(retourData.saveUser) // fonction pour envoyer les infos user provenant du backend dans le store
 
     
   }
@@ -103,6 +105,9 @@ function SignUp(onSubmitToken) {
 
 
   
+  
+
+
   
 
   return (
@@ -240,8 +245,8 @@ function SignUp(onSubmitToken) {
 // mise à disposition du token de l'utilisateur pour les autres composants à l'aide du store
 function mapDispatchToProps(dispatch) {
   return {
-    onSubmitToken: function (token) {
-      dispatch({ type: 'infoUser', token: token })
+    onSubmitUserInfo: function (user) {
+      dispatch({ type: 'infoUser', user: user })
     }
   }
 }

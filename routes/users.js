@@ -43,7 +43,7 @@ router.post('/signUp',async function(req, res, next){
       alias: req.body.alias,
       nationality: req.body.nationality,
       lastName: req.body.lastname,
-      lastFirst: req.body.firstname,
+      firstName: req.body.firstname,
       email: req.body.email,
       password: hash,
       token: uid2(32),
