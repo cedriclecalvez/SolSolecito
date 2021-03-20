@@ -12,26 +12,22 @@ import Grid from '@material-ui/core/Grid';
 function HomeScreen(){
 
 
- // useEffect avec fonction reprenant tous les events
- const [eventList,setEventList] = useState ([]);
-//  const [enventLoaded,setEnventLoaded] = useState (false);
+    const [eventList,setEventList] = useState ([]);
+    
+    // useEffect avec fonction reprenant tous les events
+
+    useEffect(() => {
+    const findEvents = async () => {
+        const data = await fetch(`/events/getAllEvents`)
+        const body = await data.json()
+        setEventList(body.allEvents);
+    }
+    findEvents()
+    },[])
+
+    console.log("-----------eventList from backend",eventList);
 
 
- useEffect(() => {
-   const findEvents = async () => {
-     const data = await fetch(`/events/getAllEvents`)
-     const body = await data.json()
-     setEventList(body.allEvents);
-   }
-   findEvents()
-},[])
-
-console.log("-----------eventList from backend",eventList);
-
-// if (eventList.length!=0){
-//  setEnventLoaded(true)
-//  } else{console.log("eventList est vide")}
- 
 
 
 
@@ -42,38 +38,35 @@ console.log("-----------eventList from backend",eventList);
     return(
         <div>
             <Header/>
-            <h1>Bienvenidos a Sol Solecito</h1>
+            <h1 >Bienvenidos a Sol Solecito</h1>
             <h2>Elige el evento que te gusta y reservalo !</h2>
-            <Container component="main" maxWidth="md" justify="flex-center">
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        {eventList.map((event,i)=>{
+            
+            {eventList.map((event,i)=>{
                             
-                            console.log("---------props de event dans homeScreen",event);
+            console.log("---------props de event dans homeScreen",event);
 
-                            <EventCard
-                                key={i}
-                                event={event}
-                                />
-                            // if (enventLoaded===true){
-                                // } else {
-                                //     console.log("error");
-                                // }
-                            
-                        } )}
+                return <Container component="main" maxWidth="md" justify="flex-center">
+                            <Grid container spacing={3} style={{marginTop:20}}>
+                                <Grid item xs={12} md={6}>
+                                    <EventCard
+                                        key={i}
+                                        event={event}
+                                    />                            
+                                </Grid>
+                                {/* <Grid item xs={12} sm={6}>
+                                    <EventCard/>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <EventCard/>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <EventCard/>
+                                </Grid> */}
+                            </Grid>
+                        </Container>
+            })}
+                       
                         
-                    </Grid>
-                    {/* <Grid item xs={12} sm={6}>
-                        <EventCard/>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <EventCard/>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <EventCard/>
-                    </Grid> */}
-                </Grid>
-            </Container>
         </div>
                
         
