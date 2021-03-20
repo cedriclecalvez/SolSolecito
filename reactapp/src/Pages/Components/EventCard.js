@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,26 +48,21 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function RecipeReviewCard() {
+export default function EventCard(props) {
+
+
+ 
+  console.log("---------props de EventCard",props);
+
+  // const [eventArrived,setEventArrived] = useState(false)
+
+
+  console.log("---------props.event.name de card",props.event.name);
+  // const event0k = props.event.name
+
+  // composant material ui
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-
-  // useEffect avec fonction reprenant tous les events
-  const [eventList,setEventList] = useState ([]);
-
-  useEffect(() => {
-    const findEvents = async () => {
-      const data = await fetch(`/events/getAllEvents`)
-      const body = await data.json()
-      setEventList(body.allEvents);
-    }
-    findEvents()
-  },[])
-  
-  console.log("-----------eventList from backend",eventList);
-  
-  
- 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -84,11 +79,12 @@ function RecipeReviewCard() {
 
 
 
-  // var allCardEvent= eventList.map((e,i)=>{
+  
 
   return (
     <Card className={classes.root}>
       <CardHeader
+      
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             R
@@ -99,6 +95,7 @@ function RecipeReviewCard() {
             <MoreVertIcon />
           </IconButton>
         }
+        
         title="hello"
         subheader="September 14, 2016"
       />
@@ -112,6 +109,9 @@ function RecipeReviewCard() {
           This impressive paella is a perfect party dish and a fun meal to cook together with your
           guests. Add 1 cup of frozen peas along with the mussels, if you like.
         </Typography>
+        {/* <Typography >
+          title=event0k
+        </Typography> */}
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -162,5 +162,3 @@ function RecipeReviewCard() {
   )
              
 }
-
-export default RecipeReviewCard

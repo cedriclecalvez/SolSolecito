@@ -119,7 +119,7 @@ res.json({resultDelete})
 router.get('/getAllEvents', async function(req, res, next){
     console.log("---------req.body route getAllEvents",req.query);
     const allEvents = await eventModel.find()
-    res.json({allEvents})
+res.json({allEvents})
 })
 
 // router.get('/getOthersEventsRegistrated', async function(req, res, next) {

@@ -16,6 +16,7 @@ import EventScreen from './Pages/EventScreen';
 import ProfilScreen from './Pages/ProfilScreen';
 import MyEventScreen from './Pages/MyEventScreen';
 import MyOtherEventScreen from './Pages/MyOtherEventScreen';
+
 import Footer from './Pages/Components/Footer';
 
 
