@@ -4,7 +4,7 @@ import './App.css';
 
 import {Provider} from  'react-redux';
 import {createStore, combineReducers} from 'redux';
-import idUser from './reducers/idUser.reducer';
+import eventInfo from './reducers/eventInfo.reducer';
 import userInfo from './reducers/userInfo.reducer';
 
 
@@ -20,7 +20,7 @@ import Footer from './Pages/Components/Footer';
 
 
 
-const store = createStore(combineReducers({idUser,userInfo}));
+const store = createStore(combineReducers({eventInfo,userInfo}));
 
 
 function App() {

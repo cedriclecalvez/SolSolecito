@@ -12,7 +12,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -143,27 +142,15 @@ function CreateEvent(props) {
     const dataToBackend = await fetch ('/events/CreateEvent',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `participants=${props.userInfo._id}
-      &contactName=${contactNameEvent}
-      &contactEmail=${contactEmailEvent}
-      &name=${nameEvent}
-      &type=${typeEvent}
-      &description=${descriptionEvent}
-      &image=${imageEvent}
-      &date=${dateEvent}
-      &hour=${hourEvent}
-      &address=${addressEvent}
-      &city=${cityEvent}
-      &postalCode=${postalCodeEvent}
-      &maxUser=${maxUserEvent}
-      &ageChildren=${ageChildrenEvent}
-      &token=${props.userInfo.token}`
+      body: `participants=${props.userInfo._id}&contactName=${contactNameEvent}&contactEmail=${contactEmailEvent}&name=${nameEvent}&type=${typeEvent}&description=${descriptionEvent}&image=${imageEvent}&date=${dateEvent}&hour=${hourEvent}&address=${addressEvent}&city=${cityEvent}&postalCode=${postalCodeEvent}&maxUser=${maxUserEvent}&ageChildren=${ageChildrenEvent}&token=${props.userInfo.token}`
     })
 
     const retourData = await dataToBackend.json()
     console.log("----------retourData du backend",retourData);
     
     setResponseBddOk(retourData.result);
+
+    props.onSubmitEvent(retourData.saveEvent)
 
     
   }
@@ -421,29 +408,18 @@ function CreateEvent(props) {
 
 function mapStateToProps(state) {
     return {userInfo:state.userInfo}
-  }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onSubmitEvent: function(event) {
+            dispatch( {type: 'infoEvent', event: event} )
+        }
+    }
+}
+
+
   export default connect(
     mapStateToProps,
-    null 
+    mapDispatchToProps 
   )(CreateEvent);
-  
-
-
-
-
-
-
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         onSubmitEvent: function(event) {
-//           dispatch( {type: 'infoCreateEvent', infoEvent: infoEvent} )
-//       }
-//     }
-//    }
-
-
-// export default connect(
-//     null,
-//     mapDispatchToProps
-// )(CreateEvent);

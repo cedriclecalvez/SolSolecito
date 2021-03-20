@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,13 +41,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeReviewCard() {
+
+
+
+
+
+
+
+function RecipeReviewCard() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+
+  // useEffect avec fonction reprenant tous les events
+  const [eventList,setEventList] = useState ([]);
+
+  useEffect(() => {
+    const findEvents = async () => {
+      const data = await fetch(`/events/getAllEvents`)
+      const body = await data.json()
+      setEventList(body.allEvents);
+    }
+    findEvents()
+  },[])
+  
+  console.log("-----------eventList from backend",eventList);
+  
+  
+ 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
+
+
+
+
+
+
+
+
+
+
+  // var allCardEvent= eventList.map((e,i)=>{
 
   return (
     <Card className={classes.root}>
@@ -62,12 +99,12 @@ export default function RecipeReviewCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title="hello"
         subheader="September 14, 2016"
       />
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
+        image="../reactapp/public/logo192.png"
         title="Paella dish"
       />
       <CardContent>
@@ -122,5 +159,8 @@ export default function RecipeReviewCard() {
         </CardContent>
       </Collapse>
     </Card>
-  );
+  )
+             
 }
+
+export default RecipeReviewCard

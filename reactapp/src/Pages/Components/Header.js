@@ -6,7 +6,6 @@ import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-u
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -104,7 +103,7 @@ export default function Header() {
                             </Grid>
 
                             <Grid item xs={2}>
-                                <div display ="flex"alignItems="flex-end">
+                                <div display ="flex">
                                     <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
                                         Mi cuenta <HomeIcon/>
                                     </Button>

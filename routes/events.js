@@ -116,4 +116,25 @@ router.delete('/deleteEvent', async function(req, res, next){
 res.json({resultDelete})    
 })
 
+router.get('/getAllEvents', async function(req, res, next){
+    console.log("---------req.body route getAllEvents",req.query);
+    const allEvents = await eventModel.find()
+    res.json({allEvents})
+})
+
+// router.get('/getOthersEventsRegistrated', async function(req, res, next) {
+//     console.log("---------req.body route getOthersEventsRegistrated",req.query);
+    
+//     // pour avoir tous les events
+//     const allEvents = await eventModel.find()
+//     // pour avoir tous mes events a moi
+//     const allEventsCreated = await eventModel.find({_id:req.body.idEvent}) 
+    
+
+
+//     res.json({othersEvents});
+  
+//   });
+
+
 module.exports = router;
