@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux'
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +20,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SaveIcon from '@material-ui/icons/Save';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import { Redirect } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,13 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-export default function EventCard(props) {
+function EventCard(props) {
 
 
  
   console.log("---------props de EventCard",props);
-  console.log("---------props.event.name de card",props.event.name);
+  // console.log("---------props.event.name de card",props.event.name);
 
 
   // composant material ui
@@ -69,6 +70,30 @@ export default function EventCard(props) {
   };
 
 
+
+
+// fonction permettant de mettre à jour event car inscription d'un nouveau user
+const addParticipantsSubmit = async () => {
+    
+  const dataToBackend = await fetch ('/events/updateParticipantsEvent',{
+    method:'PUT',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `_id=${props.userInfo._id}&_idEvent=${props.event._id}`
+  })
+
+  const retourData = await dataToBackend.json()
+  console.log("----------retourData du backend",retourData);
+  
+  
+}
+
+
+  const [toMyEvent, setToMyEvent] = useState(false);
+  if (toMyEvent==true){
+    return <Redirect to='/MyEventScreen'/>
+  }
+  
+  
 
 
 
@@ -92,7 +117,7 @@ export default function EventCard(props) {
           </WbSunnyIcon>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton onClick={()=> {addParticipantsSubmit();setToMyEvent(true)}} aria-label="settings">
             <SaveIcon />
           </IconButton>
         }
@@ -180,3 +205,12 @@ export default function EventCard(props) {
   )
              
 }
+
+function mapStateToProps(state) {
+  return {userInfo:state.userInfo}
+}
+
+export default connect(
+  mapStateToProps,
+  null 
+)(EventCard);

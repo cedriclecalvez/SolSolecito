@@ -4,6 +4,11 @@ const eventModel = require('../models/event');
 const userModel = require('../models/user');
 
 
+
+
+
+
+
 // route pour créer un évènement
 router.post('/createEvent', async function(req, res, next){
     console.log("-----------req.body createEvent",req.body);
@@ -33,7 +38,7 @@ router.post('/createEvent', async function(req, res, next){
     if(error.length==0){
 
         const newEvent = new eventModel({
-            participants:[userInfo._id],
+            participants:[req.body.participants],
             contactName: req.body.contactName, 
             contactEmail: req.body.contactEmail, 
             name: req.body.name,
@@ -63,6 +68,9 @@ router.post('/createEvent', async function(req, res, next){
 res.json({saveEvent,result});
 
 });
+
+
+
 
 
 
@@ -102,6 +110,11 @@ res.json({newEvent})
 });
 
 
+
+
+
+
+
 // route pour suuprimer un évènement de la base de données
 // autre solution : passer le isvisible a false
 router.delete('/deleteEvent', async function(req, res, next){
@@ -117,10 +130,64 @@ res.json({resultDelete})
 })
 
 router.get('/getAllEvents', async function(req, res, next){
-    console.log("---------req.body route getAllEvents",req.query);
+
+    console.log("---------req.query route getAllEvents",req.query);
     const allEvents = await eventModel.find()
+
 res.json({allEvents})
 })
+
+
+
+
+
+// route permettant de récupérer tous les events du premier participant
+router.post('/getMyEvents', async function(req, res, next) {
+
+    const idUser= req.body._id
+    console.log("---------idUser",idUser);
+
+
+    const myEventCreated =  await eventModel.find({participants : idUser })
+    console.log("-----------myEventCreated",myEventCreated);
+    
+    res.json({myEventCreated})
+})
+
+
+
+
+// put pour ajouter un nonuveau participant a un event
+router.put('/updateParticipantsEvent', async function(req,res,next){
+
+    const idUser= req.body._id
+        // console.log("---------idUser pour ajouter un participant",idUser);
+    
+    const idEvent= req.body._idEvent
+        // console.log("---------idEvent pour ajouter un participant",idEvent);
+
+    const dataEventTarget =  await eventModel.findOne({_id : idEvent });
+        // console.log("---------dataEventTarget info de event ciblé",dataEventTarget);
+    const arrayParticipants=dataEventTarget.participants
+        // console.log("---------arrayParticipants tableau de participants initial",arrayParticipants);
+
+    const newTaleau = arrayParticipants.concat(idUser)
+        // console.log("---------newTaleau nouveau tableau avec le nouveau idUser",newTaleau);
+
+
+
+    
+    var newParticipantEvent = await eventModel.findOneAndUpdate(
+        {_id:idEvent},
+        {participants: newTaleau})
+    console.log("---------newParticipantEvent verifier le tableau",newParticipantEvent);
+
+     res.json({attendre})
+
+})
+
+
+
 
 // router.get('/getOthersEventsRegistrated', async function(req, res, next) {
 //     console.log("---------req.body route getOthersEventsRegistrated",req.query);

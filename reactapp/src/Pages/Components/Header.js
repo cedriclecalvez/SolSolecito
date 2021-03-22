@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -94,8 +94,11 @@ export default function Header() {
                                     <span> </span>
                                     Sol Solecito
                                 </Typography> */}
-                                <WbSunnyIcon />  
-                                <Button variant="h5" color="inherit" onClick={(e)=>{setToHomeScreen(true)}}>Sol Solecito</Button>
+                                 
+                                <Button variant="h5" color="inherit" onClick={(e)=>{setToHomeScreen(true)}}>
+                                    <WbSunnyIcon />
+                                    Sol Solecito
+                                </Button>
                             </Grid>
 
                             <Grid item xs={4} >
@@ -105,7 +108,7 @@ export default function Header() {
                             <Grid item xs={2}>
                                 <div display ="flex">
                                     <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
-                                        Mi cuenta <HomeIcon/>
+                                        <PersonIcon/>Mi cuenta 
                                     </Button>
                                     <Menu
                                         id="simple-menu"
