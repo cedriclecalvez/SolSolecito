@@ -15,7 +15,7 @@ import CreateEvent from './Pages/CreateEvent';
 import EventScreen from './Pages/EventScreen';
 import ProfilScreen from './Pages/ProfilScreen';
 import MyEventScreen from './Pages/MyEventScreen';
-import MyOtherEventScreen from './Pages/MyOtherEventScreen';
+import EventsSavedScreen from './Pages/EventsSavedScreen';
 
 import Footer from './Pages/Components/Footer';
 
@@ -38,7 +38,7 @@ function App() {
               <Route path="/EventScreen" exact component={EventScreen}/>
               <Route path="/ProfilScreen" exact component={ProfilScreen}/>
               <Route path="/MyEventScreen" exact component={MyEventScreen}/>
-              <Route path="/MyOtherEventScreen" exact component={MyOtherEventScreen}/>       
+              <Route path="/EventsSavedScreen" exact component={EventsSavedScreen}/>       
         </Switch>
 
         <Footer/>

@@ -157,8 +157,12 @@ router.post('/getMyEvents', async function(req, res, next) {
 
 
 
-// put pour ajouter un nonuveau participant a un event
+// put pour ajouter un nouveau participant a un event
 router.put('/updateParticipantsEvent', async function(req,res,next){
+
+    let newTaleau = [];
+    let error = [];
+    let result = false;
 
     const idUser= req.body._id
         // console.log("---------idUser pour ajouter un participant",idUser);
@@ -171,37 +175,39 @@ router.put('/updateParticipantsEvent', async function(req,res,next){
     const arrayParticipants=dataEventTarget.participants
         // console.log("---------arrayParticipants tableau de participants initial",arrayParticipants);
 
-    const newTaleau = arrayParticipants.concat(idUser)
+    newTaleau = arrayParticipants.concat(idUser)
         // console.log("---------newTaleau nouveau tableau avec le nouveau idUser",newTaleau);
 
-
-
+    if(newTaleau.length!=null){
+        var newParticipantEvent = await eventModel.findOneAndUpdate(
+                {_id:idEvent},
+                {participants: newTaleau})
+            console.log("---------newParticipantEvent verifier le tableau",newParticipantEvent);
+        result = true
     
-    var newParticipantEvent = await eventModel.findOneAndUpdate(
-        {_id:idEvent},
-        {participants: newTaleau})
-    console.log("---------newParticipantEvent verifier le tableau",newParticipantEvent);
+        } else {
+        error.push("tableau vide, pas de new participant")
+    }
 
-     res.json({attendre})
+     res.json({newParticipantEvent,result,error})
 
 })
 
 
 
-
-// router.get('/getOthersEventsRegistrated', async function(req, res, next) {
-//     console.log("---------req.body route getOthersEventsRegistrated",req.query);
+// route pour avoir tous mes events sauvés ou je me suis inscrit avec les miens
+router.post('/allMyEventsSaved', async function(req, res, next) {
+    // console.log("---------req.body route allMyEventsSaved",req.body);
     
-//     // pour avoir tous les events
-//     const allEvents = await eventModel.find()
-//     // pour avoir tous mes events a moi
-//     const allEventsCreated = await eventModel.find({_id:req.body.idEvent}) 
-    
+    const idUser = req.body._id
+
+    const allEventsSaved = await eventModel.find({participants:idUser}) 
+    console.log("--------------allEventsSaved",allEventsSaved);
 
 
-//     res.json({othersEvents});
+    res.json({allEventsSaved});
   
-//   });
+  });
 
 
 module.exports = router;

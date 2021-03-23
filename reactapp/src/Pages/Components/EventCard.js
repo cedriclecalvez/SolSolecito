@@ -81,17 +81,18 @@ const addParticipantsSubmit = async () => {
     body: `_id=${props.userInfo._id}&_idEvent=${props.event._id}`
   })
 
+  // en attente car retourData ne sert pas encore
   const retourData = await dataToBackend.json()
   console.log("----------retourData du backend",retourData);
-  
-  
+   
 }
 
 
-  const [toMyEvent, setToMyEvent] = useState(false);
-  if (toMyEvent==true){
-    return <Redirect to='/MyEventScreen'/>
-  }
+
+const [toMyEvent, setToMyEvent] = useState(false);
+if (toMyEvent==true){
+  return <Redirect to='/EventsSavedScreen'/>
+}
   
   
 

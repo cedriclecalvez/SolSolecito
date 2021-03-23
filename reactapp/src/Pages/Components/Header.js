@@ -119,7 +119,7 @@ export default function Header() {
                                     >
                                         <MenuItem onClick={(e)=>{setToProfil(true);handleClose()}}>Mi perfil</MenuItem>
                                         <MenuItem onClick={(e)=>{setToMyEvent(true);handleClose()}}>Mis eventos</MenuItem>
-                                        <MenuItem onClick={(e)=>{setToOtherEvent(true);handleClose()}}>Otros eventos</MenuItem>
+                                        <MenuItem onClick={(e)=>{setToOtherEvent(true);handleClose()}}>Eventos registrados</MenuItem>
                                     </Menu>
                                 </div>
                             </Grid>
