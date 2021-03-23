@@ -34,11 +34,11 @@ function App() {
             <Route path="/" exact component={SignInScreen}/>
             <Route path="/SignUpScreen" exact component={SignUpScreen}/>
             <Route path="/HomeScreen" exact component={HomeScreen}/>
-              <Route path="/CreateEvent" exact component={CreateEvent}/>
-              <Route path="/EventScreen" exact component={EventScreen}/>
-              <Route path="/ProfilScreen" exact component={ProfilScreen}/>
-              <Route path="/MyEventScreen" exact component={MyEventScreen}/>
-              <Route path="/EventsSavedScreen" exact component={EventsSavedScreen}/>       
+            <Route path="/CreateEvent" exact component={CreateEvent}/>
+            <Route path="/EventScreen" exact component={EventScreen}/>
+            <Route path="/ProfilScreen" exact component={ProfilScreen}/>
+            <Route path="/MyEventScreen" exact component={MyEventScreen}/>
+            <Route path="/EventsSavedScreen" exact component={EventsSavedScreen}/>       
         </Switch>
 
         <Footer/>

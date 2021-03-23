@@ -63,7 +63,7 @@ function EventsSavedScreen(props){
                 // console.log("---------props de event dans EventsSavedScreen",event);
 
                     return <Container component="main" maxWidth="md" >
-                                <Grid container spacing={3} style={{marginTop:20}}>
+                                <Grid container spacing={3} style={{marginTop:20}}justify="center">
                                     <Grid item xs={12} md={6}>
                                         <EventCard
                                             key={i}

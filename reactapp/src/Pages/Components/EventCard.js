@@ -10,27 +10,29 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SaveIcon from '@material-ui/icons/Save';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import { Redirect } from 'react-router-dom';
 
 
+
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 450,
     
+
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -128,14 +130,16 @@ if (toMyEvent==true){
       />
       <CardMedia
         className={classes.media}
-        image="../reactapp/public/logo192.png"
+        image = {props.event.image[0]}
+        
+        // image = 'https://images.unsplash.com/photo-1590850093323-ccc35c610511?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80'
+        // image = 'https://123cartes.com/wp-content/uploads/2016/05/carte-joyeux-anniversaire-confettis.jpg'
         title="image card"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Descripciõn del evento : {props.event.description}-----
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          Descripciõn del evento : {props.event.description}
+          
         </Typography>
         
         <Typography variant="body2" color="textSecondary" component="p">
@@ -172,7 +176,7 @@ if (toMyEvent==true){
           <Typography paragraph>Description:</Typography>
           <Typography>
           {props.event.description}
-          Set aside off of the heat to let rest for 10 minutes, and then serve.
+          
           
           </Typography>
           
@@ -203,6 +207,7 @@ if (toMyEvent==true){
         </CardContent>
       </Collapse>
     </Card>
+   
   )
              
 }

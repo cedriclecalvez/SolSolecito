@@ -3,9 +3,12 @@ import React, {useState,useEffect}from 'react';
 import Header from './Components/Header';
 import EventCard from './Components/EventCard'; 
 
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+
+import Box from '@material-ui/core/Box';
+
+
 
 
 
@@ -54,27 +57,16 @@ function HomeScreen(){
                                 
                 console.log("---------props de event dans homeScreen",event);
 
-                    return <Container component="main" maxWidth="md" >
-                                <Grid container spacing={3} style={{marginTop:20}}>
-                                    <Grid item xs={12} md={6}>
-                                        <EventCard
+                    return <Box display="flex" flexWrap="wrap" justifyContent="center" alignContent="center">
+                                <Grid style={{marginBottom:50}}>
+                                    <EventCard style={{marginBottom:50}}
                                             key={i}
                                             event={event}
-                                        />                            
-                                    </Grid>
-                                    {/* <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid> */}
-                                </Grid>
-                            </Container>
+                                    />    
+                                </Grid> 
+                            </Box>                 
                 })}
-            </div>             
+            </div>         
         </div>   
     )
 };

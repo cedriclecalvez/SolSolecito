@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
@@ -36,7 +37,7 @@ const theme = createMuiTheme({
 
 
 // composant Header
-export default function Header() {
+function Header(props) {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -65,7 +66,7 @@ export default function Header() {
         return <Redirect to='/MyEventScreen'/>
     }
     if (toOtherEvent===true){
-        return <Redirect to='/MyOtherEventScreen'/>
+        return <Redirect to='/EventsSavedScreen'/>
     }
     if (toSignIn===true){
         return <Redirect to='/'/>
@@ -108,7 +109,7 @@ export default function Header() {
                             <Grid item xs={2}>
                                 <div display ="flex">
                                     <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
-                                        <PersonIcon/>Mi cuenta 
+                                        <PersonIcon/>Mi cuenta {props.userInfo.alias}
                                     </Button>
                                     <Menu
                                         id="simple-menu"
@@ -134,3 +135,13 @@ export default function Header() {
         </div>
     );
     }
+
+    function mapStateToProps(state) {
+        return {userInfo:state.userInfo}
+      }
+      
+      export default connect(
+        mapStateToProps,
+        null 
+      )(Header);
+      
