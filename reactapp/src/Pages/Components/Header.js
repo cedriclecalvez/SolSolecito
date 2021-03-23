@@ -50,12 +50,17 @@ function Header(props) {
     const [toHomeScreen, setToHomeScreen] = useState(false);
     
     
+    
+    
+    
    
 
    
     if (toHomeScreen===true){
-        return <Redirect to='/HomeScreen'/>
+        setTimeout(()=>{setToHomeScreen(false)}, 300)
+        return <Redirect to='/HomeScreen' /> 
     }
+    
     if (toCreateEvent===true){
         return <Redirect to='/CreateEvent'/>
     }
@@ -96,7 +101,7 @@ function Header(props) {
                                     Sol Solecito
                                 </Typography> */}
                                  
-                                <Button variant="h5" color="inherit" onClick={(e)=>{setToHomeScreen(true)}}>
+                                <Button variant="h5" color="inherit"  onClick={(e)=>{setToHomeScreen(true)}}>
                                     <WbSunnyIcon />
                                     Sol Solecito
                                 </Button>

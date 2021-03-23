@@ -58,6 +58,9 @@ function SignInScreen(props) {
   const [errorEmail,setErrorEmail] = useState (false);
   const [errorPassword,setErrorPassword] = useState (false);
   
+  
+  const [toSignUp,setToSignUp] = useState (false);
+  
 
   console.log("----------------signInEmail",signInEmail);
   console.log("----------------signInPassword",signInPassword);
@@ -101,6 +104,11 @@ function SignInScreen(props) {
     return <Redirect to='/HomeScreen'/>
   }
   
+  // permet de rediriger vers signUp
+  if(toSignUp){
+    setTimeout(()=>{setToSignUp(false)}, 300)
+    return <Redirect to='/SignUpScreen'/>
+  }
 
 
 
@@ -177,7 +185,7 @@ function SignInScreen(props) {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/SignUpScreen" variant="body2">
+              <Link href="/SignUpScreen" onClick={()=>setToSignUp(true)}  variant="body2">
                 {"No tienes una cuenta? Registrate"}
               </Link>
             </Grid>

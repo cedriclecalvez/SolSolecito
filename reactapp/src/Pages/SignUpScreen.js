@@ -83,7 +83,7 @@ function SignUp(props) {
   
 
     // envoie des données user vers le backend
-    const dataToBackend = await fetch ('/users/SignUp',{
+    const dataToBackend = await fetch ('/users/signUp',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: `alias=${aliasSignUp}&nationality=${nacionalitySignUp}&firstname=${firstNameSignUp}&lastname=${lastNameSignUp}&email=${emailSignUp}&password=${passwordSignUp}`
