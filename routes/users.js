@@ -17,6 +17,7 @@ router.post('/signUp',async function(req, res, next){
 
   var result = false;
   var saveUser;
+  console.log("------ saveUser signUp",saveUser);
   var token = null;
   var error = [];
   var userExist= await userModel.findOne({email:req.body.email})

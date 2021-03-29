@@ -20,6 +20,8 @@ function EventsSavedScreen(props){
     useEffect(() => {
 
         const findEvents = async () => {
+
+
             // envoie des données event vers le backend
             const dataToBackend = await fetch ('/events/allMyEventsSaved',{
                 method:'POST',
@@ -68,6 +70,7 @@ function EventsSavedScreen(props){
                                         <EventCard
                                             key={i}
                                             event={event}
+                                            parent="cancelParticipation"
                                         />                            
                                     </Grid>
                                     {/* <Grid item xs={12} sm={6}>

@@ -62,6 +62,7 @@ function HomeScreen(){
                                     <EventCard style={{marginBottom:50}}
                                             key={i}
                                             event={event}
+                                            parent="HomePage"
                                     />    
                                 </Grid> 
                             </Box>                 

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,7 +18,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SaveIcon from '@material-ui/icons/Save';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import { Redirect } from 'react-router-dom';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 
@@ -59,7 +60,7 @@ function EventCard(props) {
 
 
  
-  console.log("---------props de EventCard",props);
+  console.log("---------props de EventCard venant de HomeScreen",props);
   // console.log("---------props.event.name de card",props.event.name);
 
 
@@ -91,7 +92,49 @@ const addParticipantsSubmit = async () => {
 
 
 
+
+// fonction si dans MyEventScreen je delete un event
+const deleteMyEventCreated = async () => {
+  console.log("---------props.event._id venant de HomeScreen",props.event._id);
+
+
+  const resultDelete = await fetch ('/events/deleteEvent',{
+  method:'DELETE',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `idEvent=${props.event._id}`
+  })
+  const retourDeleteEvent = await resultDelete.json()
+  console.log("-----------retourDeleteEvent",retourDeleteEvent);
+
+
+
+
+
+}
+// fonction si dans EventsSavedScreen j'annule ma participation à un event
+const cancelParticipation = async () => {
+
+
+  const resultUpdateCancel = await fetch ('/events/updateToCancelParticipant',{
+  method:'PUT',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `_id=${props.userInfo._id}&_idEvent=${props.event._id}`
+  })
+  const retourResultUpdateCancel = await resultUpdateCancel.json()
+  console.log("-----------retourResultUpdateCancel",retourResultUpdateCancel);
+
+}
+
+
+
+
+
+
+
+
+
 const [toMyEvent, setToMyEvent] = useState(false);
+
 if (toMyEvent==true){
   return <Redirect to='/EventsSavedScreen'/>
 }
@@ -119,9 +162,25 @@ if (toMyEvent==true){
             
           </WbSunnyIcon>
         }
+
         action={
+          props.parent==="HomePage" ?
           <IconButton onClick={()=> {addParticipantsSubmit();setToMyEvent(true)}} aria-label="settings">
             <SaveIcon />
+          </IconButton>
+        
+        : props.parent==="deleteEvent" ? 
+          <IconButton onClick={()=> {deleteMyEventCreated();setToMyEvent(true)}} aria-label="settings">
+            <DeleteForeverIcon/>
+          </IconButton>
+
+        : props.parent==="cancelParticipation" ? 
+        <IconButton onClick={()=> {cancelParticipation();setToMyEvent(true)}} aria-label="settings">
+            Cancelar
+        </IconButton>
+
+        : <IconButton onClick={()=> {addParticipantsSubmit();setToMyEvent(true)}} aria-label="settings">
+            test
           </IconButton>
         }
         
@@ -146,7 +205,7 @@ if (toMyEvent==true){
         Ciudad del evento : {props.event.city}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-         El evento empesara a las : {props.event.hour}
+         El evento empezara a las : {props.event.hour}h
         </Typography>
       </CardContent>
 
@@ -192,7 +251,7 @@ if (toMyEvent==true){
          {props.event.postalCode}
         </Typography>
         <Typography paragraph> </Typography>
-        <Typography paragraph> Hora del evento : {props.event.hour}</Typography>
+        <Typography paragraph> Hora del evento : {props.event.hour}h</Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
          

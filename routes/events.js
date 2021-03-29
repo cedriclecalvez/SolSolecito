@@ -129,6 +129,10 @@ router.delete('/deleteEvent', async function(req, res, next){
 res.json({resultDelete})    
 })
 
+
+
+
+// renoyer tous les events
 router.get('/getAllEvents', async function(req, res, next){
 
     console.log("---------req.query route getAllEvents",req.query);
@@ -148,9 +152,18 @@ router.post('/getMyEvents', async function(req, res, next) {
     console.log("---------idUser",idUser);
 
 
-    const myEventCreated =  await eventModel.find({participants : idUser })
-    console.log("-----------myEventCreated",myEventCreated);
+    const eventsResult =  await eventModel.find({participants : idUser})
+    console.log("-----------eventsResult",eventsResult);
     
+    const myEventCreated =[]
+    for(var i=0; i<eventsResult.length; i++){
+        if (eventsResult[i].participants.length>0 && eventsResult[i].participants[0]==idUser){
+            myEventCreated.push(eventsResult[i])
+        }
+    }
+    console.log("------------myEventCreated route getMyEvents",myEventCreated);
+
+
     res.json({myEventCreated})
 })
 
@@ -211,3 +224,31 @@ router.post('/allMyEventsSaved', async function(req, res, next) {
 
 
 module.exports = router;
+
+
+
+
+
+
+// route pour me désinscrire à un event; donc update
+router.put('/updateToCancelParticipant' , async function (req,res,next){
+    console.log("----------updateToCancelParticipant req.body",req.body);
+
+    let newTableau =[]
+
+    const dataEventTarget =  await eventModel.findOne({_id : req.body._idEvent });
+    // console.log("---------dataEventTarget info de event ciblé",dataEventTarget);
+    const arrayParticipants=dataEventTarget.participants
+
+    newTableau = arrayParticipants.filter(id=>id!==req.body._idEvent)
+    console.log("-----------newTableau cancelparticipant", newTableau);
+
+
+
+    var eventUpdated = await eventModel.findOneAndUpdate(
+       {_id:req.body._idEvent},
+       {participants: newTaleau})
+
+       res.json({eventUpdated})
+
+});

@@ -15,9 +15,9 @@ import Typography from '@material-ui/core/Typography';
 
 function MyEventScreen(props){
 
-    console.log("----------props",props);
-    console.log("----------props.userInfo.token",props.userInfo.token);
-    console.log("----------props.userInfo._id",props.userInfo._id);
+    // console.log("----------props",props);
+    // console.log("----------props.userInfo.token",props.userInfo.token);
+    // console.log("----------props.userInfo._id",props.userInfo._id);
 
 
     const [myEventList,setMyEventList] = useState ([]);
@@ -43,7 +43,7 @@ function MyEventScreen(props){
     findEvents()
     },[])
 
-    console.log("-----------allMyEvents from backend",myEventList);
+    // console.log("-----------allMyEvents from backend",myEventList);
 
 
 
@@ -76,6 +76,7 @@ function MyEventScreen(props){
                                         <EventCard
                                             key={i}
                                             event={event}
+                                            parent="deleteEvent"
                                         />                            
                                     </Grid>
                                 
