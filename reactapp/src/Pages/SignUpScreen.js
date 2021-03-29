@@ -242,7 +242,7 @@ function SignUp(props) {
 
 
 
-// mise à disposition du token de l'utilisateur pour les autres composants à l'aide du store
+// mise à disposition des infos de l'utilisateur pour les autres composants à l'aide du store
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitUserInfo: function (user) {
