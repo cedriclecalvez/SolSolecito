@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Header from './Components/Header'
+import Header from './Components/Header';
+import DateTimePickers from './Components/DateTime';
 
 
 
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 function CreateEvent(props) {
   const classes = useStyles();
   console.log("-----------userInfo from store ,props.userInfo",props.userInfo);
-
+  
 
   // initialisation des états
   const [contactNameEvent,setContactNameEvent]= useState(props.userInfo.lastName);
@@ -160,7 +161,7 @@ function CreateEvent(props) {
 
 
   
-  
+
 
 
 
@@ -299,6 +300,9 @@ function CreateEvent(props) {
                             onChange={(e)=> {setErrorHourEvent(false) ; setHourEvent(e.target.value)}}
                         />
                         </Grid>
+
+                        <DateTimePickers />
+
                         <Grid item xs={12}>
                         <TextField
                             error={errorAddressEvent} // si il y a une erreur, error = error
