@@ -13,6 +13,17 @@ const userModel = require('../models/user');
 router.post('/createEvent', async function(req, res, next){
     console.log("-----------req.body createEvent",req.body);
 
+
+    console.log("-------typeof req.body.date",typeof req.body.dateNew);
+    let dateNouvelle=JSON.parse(req.body.dateNew)
+    console.log("----------- dateNouvelle",dateNouvelle);
+    let nouvelleDate = new Date(dateNouvelle)
+    console.log("----------- nouvelleDate",nouvelleDate);
+    console.log("-------typeof nouvelleDate",typeof nouvelleDate);
+
+   
+
+
     var error = [];
     let result=false;
     let saveEvent;
@@ -23,7 +34,6 @@ router.post('/createEvent', async function(req, res, next){
     if (req.body.name==''
         ||req.body.type==''
         ||req.body.description==''        
-        ||req.body.hour==''
         ||req.body.address==''
         ||req.body.city==''
         ||req.body.postalcode==''
@@ -46,8 +56,8 @@ router.post('/createEvent', async function(req, res, next){
             description: req.body.description,
             // images:[],
             // state: req.body.state,
-            // date: req.body.date,
-            hour: req.body.hour,
+            date: req.body.date,
+            
             address: req.body.address,
             city: req.body.city,
             postalCode: req.body.postalcode,

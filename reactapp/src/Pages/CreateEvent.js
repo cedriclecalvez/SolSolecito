@@ -57,9 +57,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
+
+
+
 // pour créer un event
 function CreateEvent(props) {
   const classes = useStyles();
+  console.log("-----------props general de createEvent ,props",props);
   console.log("-----------userInfo from store ,props.userInfo",props.userInfo);
   
 
@@ -109,6 +114,8 @@ function CreateEvent(props) {
   const [responseBddOk,setResponseBddOk]= useState(false);
 
 
+
+
   // fonction du bouton retour vers HomeScreen
   const [createOtherEvent,setCreateOtherEvent]= useState(false);
   if(createOtherEvent===true){
@@ -118,8 +125,22 @@ function CreateEvent(props) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
   // fonction pour passer les infos au backend
   const handleSubmitSignUp = async () => {
+
+
+
 
     // condition pour changer le style des inputs
     if(contactNameEvent===""){setErrorContactNameEvent(true)}
@@ -137,13 +158,17 @@ function CreateEvent(props) {
     if(ageChildrenEvent===""){setErrorAgeChildrenEvent(true)}
     
     
-  
-
+    
     // envoie des données event vers le backend
+    console.log("typeof dateEvent",typeof dateEvent);
+    console.log(" dateEvent",dateEvent);
+    let  dateString = JSON.stringify(dateEvent)
+
+
     const dataToBackend = await fetch ('/events/CreateEvent',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `participants=${props.userInfo._id}&contactName=${contactNameEvent}&contactEmail=${contactEmailEvent}&name=${nameEvent}&type=${typeEvent}&description=${descriptionEvent}&image=${imageEvent}&date=${dateEvent}&hour=${hourEvent}&address=${addressEvent}&city=${cityEvent}&postalCode=${postalCodeEvent}&maxUser=${maxUserEvent}&ageChildren=${ageChildrenEvent}&token=${props.userInfo.token}`
+      body: `dateNew=${dateString}&participants=${props.userInfo._id}&contactName=${contactNameEvent}&contactEmail=${contactEmailEvent}&name=${nameEvent}&type=${typeEvent}&description=${descriptionEvent}&image=${imageEvent}&date=${dateEvent}&hour=${hourEvent}&address=${addressEvent}&city=${cityEvent}&postalCode=${postalCodeEvent}&maxUser=${maxUserEvent}&ageChildren=${ageChildrenEvent}&token=${props.userInfo.token}`
     })
 
     const retourData = await dataToBackend.json()
@@ -160,8 +185,25 @@ function CreateEvent(props) {
   }
 
 
-  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // fonction reverse data flow permettant de recuperer les données selectionnées par l'utilisateur
+  const handleDateChange = (date)=>{
+    console.log("----------- fonction reverse data selectedDate",date);
+    setDateEvent(date)
+  }
 
 
 
@@ -272,7 +314,7 @@ function CreateEvent(props) {
                             onChange={(e)=> {setErrorImageEvent(false) ; setImageEvent(e.target.value)}}
                         />
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                         <TextField
                             error={errorDateEvent} // si il y a une erreur, error = error
                             autoComplete="fname"
@@ -299,9 +341,11 @@ function CreateEvent(props) {
                             autoFocus
                             onChange={(e)=> {setErrorHourEvent(false) ; setHourEvent(e.target.value)}}
                         />
-                        </Grid>
+                        </Grid> */}
 
-                        <DateTimePickers />
+                        <DateTimePickers setSelectedDate={handleDateChange}/>
+                        
+                        
 
                         <Grid item xs={12}>
                         <TextField

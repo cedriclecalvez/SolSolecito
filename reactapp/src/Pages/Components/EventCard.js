@@ -20,7 +20,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-
+// import pour changer le format de la date
+import moment from "moment";
 
 
 
@@ -71,6 +72,8 @@ function EventCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
 
 
 
@@ -128,6 +131,16 @@ const cancelParticipation = async () => {
 
 
 
+// conversion des dates et heures venant du backend grace au module moment pour l'affichage
+let formatDate = moment(props.event.date).format('MMMM Do YYYY')
+      
+let formatHour = moment(props.event.date).format('h:mm a')
+    
+
+
+
+
+
 
 
 
@@ -135,21 +148,10 @@ const cancelParticipation = async () => {
 
 const [toMyEvent, setToMyEvent] = useState(false);
 
-if (toMyEvent==true){
+if (toMyEvent===true){
   return <Redirect to='/EventsSavedScreen'/>
 }
   
-  
-
-
-
-
-
-
-
-
-
-
   
 
   return (
@@ -185,7 +187,8 @@ if (toMyEvent==true){
         }
         
         title={props.event.name}
-        subheader="September 14, 2016"
+        // subheader="September 14, 2016"
+        subheader={formatDate}
       />
       <CardMedia
         className={classes.media}
@@ -205,7 +208,7 @@ if (toMyEvent==true){
         Ciudad del evento : {props.event.city}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-         El evento empezara a las : {props.event.hour}h
+         El evento empezara a las : {formatHour}
         </Typography>
       </CardContent>
 
@@ -251,7 +254,7 @@ if (toMyEvent==true){
          {props.event.postalCode}
         </Typography>
         <Typography paragraph> </Typography>
-        <Typography paragraph> Hora del evento : {props.event.hour}h</Typography>
+        <Typography paragraph> Hora del evento : {formatHour}</Typography>
 
         <Typography variant="body2" color="textSecondary" component="p">
          
