@@ -14,16 +14,6 @@ router.post('/createEvent', async function(req, res, next){
     console.log("-----------req.body createEvent",req.body);
 
 
-    console.log("-------typeof req.body.date",typeof req.body.dateNew);
-    let dateNouvelle=JSON.parse(req.body.dateNew)
-    console.log("----------- dateNouvelle",dateNouvelle);
-    let nouvelleDate = new Date(dateNouvelle)
-    console.log("----------- nouvelleDate",nouvelleDate);
-    console.log("-------typeof nouvelleDate",typeof nouvelleDate);
-
-   
-
-
     var error = [];
     let result=false;
     let saveEvent;
@@ -57,7 +47,6 @@ router.post('/createEvent', async function(req, res, next){
             // images:[],
             // state: req.body.state,
             date: req.body.date,
-            
             address: req.body.address,
             city: req.body.city,
             postalCode: req.body.postalcode,

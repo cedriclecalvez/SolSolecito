@@ -57,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
+
+
 function EventCard(props) {
 
-
- 
   console.log("---------props de EventCard venant de HomeScreen",props);
-  // console.log("---------props.event.name de card",props.event.name);
 
 
   // composant material ui
@@ -78,7 +78,7 @@ function EventCard(props) {
 
 
 
-// fonction permettant de mettre à jour event car inscription d'un nouveau user
+// fonction permettant de mettre à jour event qd inscription d'un nouveau utilisateur
 const addParticipantsSubmit = async () => {
     
   const dataToBackend = await fetch ('/events/updateParticipantsEvent',{
@@ -87,11 +87,13 @@ const addParticipantsSubmit = async () => {
     body: `_id=${props.userInfo._id}&_idEvent=${props.event._id}`
   })
 
-  // en attente car retourData ne sert pas encore
+  // en attente car retourData ne sert pas encore; pour update le nbre de participant dans le frontend plus tard
   const retourData = await dataToBackend.json()
   console.log("----------retourData du backend",retourData);
    
 }
+
+
 
 
 
@@ -108,6 +110,8 @@ const deleteMyEventCreated = async () => {
   })
   const retourDeleteEvent = await resultDelete.json()
   console.log("-----------retourDeleteEvent",retourDeleteEvent);
+
+
 
 
 
@@ -131,12 +135,14 @@ const cancelParticipation = async () => {
 
 
 
-// conversion des dates et heures venant du backend grace au module moment pour l'affichage
+
+
+
+// affichage : conversion des dates et heures venant du backend grace au module moment pour l'affichage
 let formatDate = moment(props.event.date).format('MMMM Do YYYY')
       
 let formatHour = moment(props.event.date).format('h:mm a')
     
-
 
 
 
@@ -152,19 +158,37 @@ if (toMyEvent===true){
   return <Redirect to='/EventsSavedScreen'/>
 }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
   return (
     
+
+    
     <Card className={classes.root}>
-      <CardHeader
-      
+
+
+      <CardHeader      
         avatar={
           <WbSunnyIcon aria-label="recipe" className={classes.avatar}>
             
           </WbSunnyIcon>
         }
-
         action={
           props.parent==="HomePage" ?
           <IconButton onClick={()=> {addParticipantsSubmit();setToMyEvent(true)}} aria-label="settings">
@@ -187,9 +211,11 @@ if (toMyEvent===true){
         }
         
         title={props.event.name}
-        // subheader="September 14, 2016"
+
         subheader={formatDate}
       />
+
+
       <CardMedia
         className={classes.media}
         image = {props.event.image[0]}
@@ -198,19 +224,21 @@ if (toMyEvent===true){
         // image = 'https://123cartes.com/wp-content/uploads/2016/05/carte-joyeux-anniversaire-confettis.jpg'
         title="image card"
       />
+
+
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Descripciõn del evento : {props.event.description}
-          
-        </Typography>
-        
-        <Typography variant="body2" color="textSecondary" component="p">
-        Ciudad del evento : {props.event.city}
+          Descripciõn del evento : {props.event.description}   
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-         El evento empezara a las : {formatHour}
+          Ciudad del evento : {props.event.city}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          El evento empezara a las : {formatHour}
         </Typography>
       </CardContent>
+
+
 
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -233,32 +261,30 @@ if (toMyEvent===true){
         </IconButton>
       </CardActions>
 
+
+
+
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Description:</Typography>
           <Typography>
-          {props.event.description}
-          
-          
+            {props.event.description}
           </Typography>
-          
           <Typography paragraph> </Typography>
           <Typography paragraph>Direcciõn del evento : </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-         {props.event.address}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.event.city}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-         {props.event.postalCode}
-        </Typography>
-        <Typography paragraph> </Typography>
-        <Typography paragraph> Hora del evento : {formatHour}</Typography>
-
-        <Typography variant="body2" color="textSecondary" component="p">
-         
-        </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.event.address}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.event.city}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.event.postalCode}
+          </Typography>
+          <Typography paragraph> </Typography>
+          <Typography paragraph> Hora del evento : {formatHour}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+          </Typography>
           <Typography paragraph>Contacto del evento:</Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Persona a contactar : {props.event.contactName}         
@@ -268,6 +294,7 @@ if (toMyEvent===true){
           </Typography>
         </CardContent>
       </Collapse>
+
     </Card>
    
   )

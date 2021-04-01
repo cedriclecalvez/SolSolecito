@@ -24,7 +24,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 
-// styles
+// styles variable globale
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -68,7 +68,7 @@ function CreateEvent(props) {
   console.log("-----------userInfo from store ,props.userInfo",props.userInfo);
   
 
-  // initialisation des états
+  // initialisation des états avec erreur en cas de champs vides
   const [contactNameEvent,setContactNameEvent]= useState(props.userInfo.lastName);
   const [errorContactNameEvent,setErrorContactNameEvent]= useState(false);
 
@@ -111,8 +111,11 @@ function CreateEvent(props) {
 //   const [numbRegistredUserEvent,setNumbRegistredUserEvent]= useState("");
 //   const [errorNumbRegistredUserEvent,setErrorNumbRegistredUserEvent]= useState(false);
 
-  const [responseBddOk,setResponseBddOk]= useState(false);
 
+
+
+
+  const [responseBddOk,setResponseBddOk]= useState(false);
 
 
 
@@ -140,9 +143,7 @@ function CreateEvent(props) {
   const handleSubmitSignUp = async () => {
 
 
-
-
-    // condition pour changer le style des inputs
+    // condition pour changer le style des inputs; si un champs est vide alors set une erreur
     if(contactNameEvent===""){setErrorContactNameEvent(true)}
     if(contactEmailEvent===""){seterrorContactEmailEvent(true)}
     if(nameEvent===""){setErrorNameEvent(true)}
@@ -158,17 +159,12 @@ function CreateEvent(props) {
     if(ageChildrenEvent===""){setErrorAgeChildrenEvent(true)}
     
     
-    
-    // envoie des données event vers le backend
-    console.log("typeof dateEvent",typeof dateEvent);
-    console.log(" dateEvent",dateEvent);
-    let  dateString = JSON.stringify(dateEvent)
 
 
     const dataToBackend = await fetch ('/events/CreateEvent',{
       method:'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `dateNew=${dateString}&participants=${props.userInfo._id}&contactName=${contactNameEvent}&contactEmail=${contactEmailEvent}&name=${nameEvent}&type=${typeEvent}&description=${descriptionEvent}&image=${imageEvent}&date=${dateEvent}&hour=${hourEvent}&address=${addressEvent}&city=${cityEvent}&postalCode=${postalCodeEvent}&maxUser=${maxUserEvent}&ageChildren=${ageChildrenEvent}&token=${props.userInfo.token}`
+      body: `participants=${props.userInfo._id}&contactName=${contactNameEvent}&contactEmail=${contactEmailEvent}&name=${nameEvent}&type=${typeEvent}&description=${descriptionEvent}&image=${imageEvent}&date=${dateEvent}&hour=${hourEvent}&address=${addressEvent}&city=${cityEvent}&postalCode=${postalCodeEvent}&maxUser=${maxUserEvent}&ageChildren=${ageChildrenEvent}&token=${props.userInfo.token}`
     })
 
     const retourData = await dataToBackend.json()
@@ -194,16 +190,18 @@ function CreateEvent(props) {
 
 
 
-
-
-
-
-
   // fonction reverse data flow permettant de recuperer les données selectionnées par l'utilisateur
   const handleDateChange = (date)=>{
     console.log("----------- fonction reverse data selectedDate",date);
     setDateEvent(date)
   }
+
+
+
+
+
+
+  
 
 
 
@@ -314,34 +312,9 @@ function CreateEvent(props) {
                             onChange={(e)=> {setErrorImageEvent(false) ; setImageEvent(e.target.value)}}
                         />
                         </Grid>
-                        {/* <Grid item xs={12}>
-                        <TextField
-                            error={errorDateEvent} // si il y a une erreur, error = error
-                            autoComplete="fname"
-                            name="date"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            label={!errorDateEvent ? "Fecha del evento" : "error"}
-                            id={!errorDateEvent ? "date" : "outlined-error"}
-                            autoFocus
-                            onChange={(e)=> {setErrorDateEvent(false) ; setDateEvent(e.target.value)}}
-                        />
-                        </Grid>
-                        <Grid item xs={12}>
-                        <TextField
-                            error={errorHourEvent} // si il y a une erreur, error = error
-                            autoComplete="fname"
-                            name="hour"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            label={!errorHourEvent ? "Hora del evento" : "error"}
-                            id={!errorHourEvent ? "hour" : "outlined-error"}
-                            autoFocus
-                            onChange={(e)=> {setErrorHourEvent(false) ; setHourEvent(e.target.value)}}
-                        />
-                        </Grid> */}
+                      
+
+
 
                         <DateTimePickers setSelectedDate={handleDateChange}/>
                         

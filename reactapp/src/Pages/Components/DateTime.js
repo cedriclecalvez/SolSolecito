@@ -8,6 +8,12 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+
+
+
+
+
+
 export default function DateTimePickers(props) {
     console.log("---------props de composant DateTimePickers",props);
 
@@ -16,41 +22,50 @@ export default function DateTimePickers(props) {
   console.log("------------selectedDate",selectedDate);
 
   const handleDateChange = (date) => {
-      setSelectedDate(date);
-    props.setSelectedDate(date);
+        //pour changer l'affichage
+        setSelectedDate(date);
+        // pour envoyer en reverse data flow date
+        props.setSelectedDate(date);
   };
+
+
+
 
 
   
   
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Fecha del evento"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-       
-        <KeyboardTimePicker
-          margin="normal"
-          id="time-picker"
-          label="Hora del evento"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change time',
-          }}
-        />
-      </Grid>
+        <Grid container justify="space-around">
+            <Grid item xs={12} sm={4}>
+                <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Fecha del evento"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
+                />
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+                <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Hora del evento"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                    'aria-label': 'change time',
+                }}
+                />
+            </Grid>
+        </Grid>
     </MuiPickersUtilsProvider>
   );
 }
