@@ -5,10 +5,6 @@ import EventCard from './Components/EventCard';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-
-
-
 
 
 
@@ -51,27 +47,30 @@ function HomeScreen(){
             <Typography style={{display:"flex",justifyContent:"center",marginTop:50}} component="h1" variant="h3">
                 Bienvenidos a Sol Solecito
             </Typography>
-            {/* <h1 >Bienvenidos a Sol Solecito</h1> */}
+           
             <div style={{display:"flex",justifyContent:"center"}}>
                 <h2>Elige el evento que te gusta y reservalo !</h2>
             </div>
 
-            <div>
-                {eventList.map((event,i)=>{            
-                console.log("---------props de event dans homeScreen",event);
+            <div >
+                <Grid container item style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+                    {eventList.map((event,i)=>{            
+                    console.log("---------props de event dans homeScreen",event);
 
-                    return <Box display="flex" flexWrap="wrap" justifyContent="center" alignContent="center">
-                                <Grid style={{marginBottom:50}}>
+                        return  <Grid key={i} style={{marginBottom:50, marginRight:20}}>
                                     <EventCard style={{marginBottom:50}}
                                         key={i}
                                         event={event}
                                         parent="HomePage"
                                     />    
                                 </Grid> 
-                            </Box>                 
-                })}
+                                
+                                            
+                    })}
+                </Grid>
             </div>
 
+            
 
         </div>   
     )

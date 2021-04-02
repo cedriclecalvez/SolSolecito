@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import Header from './Components/Header';
 import EventCard from './Components/EventCard'; 
 
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -60,30 +59,29 @@ function MyEventScreen(props){
             <Typography style={{display:"flex",justifyContent:"center",marginTop:50}} component="h1" variant="h3">
             Tus eventos creados
             </Typography>
-            {/* <h1  component="h1" variant="h2">Tus eventos creados</h1> */}
+            
             <div style={{display:"flex",justifyContent:"center"}}>
                 <h2 >Aqui puedes modificar o cancelar !</h2>
             </div>
             
             <div>
-                {myEventList.map((event,i)=>{
-                                
-                console.log("---------props de event dans myEventScreen",event);
+                <Grid container item style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+                    {myEventList.map((event,i)=>{                   
+                    console.log("---------props de event dans myEventScreen",event);
 
-                    return <Container component="main" maxWidth="md">
-                                <Grid container spacing={3} style={{marginTop:20}} justify="center">
-                                    <Grid item xs={12} md={6}>
-                                        <EventCard
-                                            key={i}
-                                            event={event}
-                                            parent="deleteEvent"
-                                        />                            
-                                    </Grid>
-                                
+                        return  <Grid key={i} style={{marginBottom:50, marginRight:20}}>                                   
+                                    <EventCard style={{marginBottom:50}}
+                                                key={i}
+                                                event={event}
+                                                parent="deleteEvent"
+                                    />                            
                                 </Grid>
-                            </Container>
-                })}
-            </div>          
+                                    
+                                  
+                    })}
+                </Grid>
+            </div>  
+
         </div>
   
     )

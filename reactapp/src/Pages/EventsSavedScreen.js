@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Header from './Components/Header';
 import EventCard from './Components/EventCard'; 
 
-import Container from '@material-ui/core/Container';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -54,37 +54,27 @@ function EventsSavedScreen(props){
             <Typography style={{display:"flex",justifyContent:"center",marginTop:50}} component="h1" variant="h3">
                 Tus eventos registrados
             </Typography>
-            {/* <h1 >Bienvenidos a Sol Solecito</h1> */}
+            
             <div style={{display:"flex",justifyContent:"center"}}>
                 <h2>Aqui puedes ver todos tus eventos donde vas a ir !</h2>
             </div>
 
             <div>
-                {eventList.map((event,i)=>{
-                                
-                // console.log("---------props de event dans EventsSavedScreen",event);
+                <Grid container item style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+                    {eventList.map((event,i)=>{              
+                    // console.log("---------props de event dans EventsSavedScreen",event);
 
-                    return <Container component="main" maxWidth="md" >
-                                <Grid container spacing={3} style={{marginTop:20}}justify="center">
-                                    <Grid item xs={12} md={6}>
-                                        <EventCard
+                        return  <Grid key={i} style={{marginBottom:50, marginRight:20}}>
+                                    <EventCard style={{marginBottom:50}}
                                             key={i}
                                             event={event}
                                             parent="cancelParticipation"
-                                        />                            
-                                    </Grid>
-                                    {/* <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <EventCard/>
-                                    </Grid> */}
+                                    />                            
                                 </Grid>
-                            </Container>
-                })}
+                                    
+                                    
+                    })}
+                </Grid>
             </div>             
         </div>   
     )
