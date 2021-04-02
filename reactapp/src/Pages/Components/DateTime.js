@@ -18,7 +18,7 @@ export default function DateTimePickers(props) {
     console.log("---------props de composant DateTimePickers",props);
 
   // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2021-01-14T21:00:00'));
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2021-04-06T21:00:00'));
   console.log("------------selectedDate",selectedDate);
 
   const handleDateChange = (date) => {

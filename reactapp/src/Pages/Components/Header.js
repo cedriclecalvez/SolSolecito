@@ -93,25 +93,20 @@ function Header(props) {
             <ThemeProvider theme={theme}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Grid container spacing={3}>
-                            < Grid item xs={4}>
-                                {/* <Typography variant="h5" className={classes.title}>
-                                    <WbSunnyIcon />
-                                    <span> </span>
-                                    Sol Solecito
-                                </Typography> */}
-                                 
+                        <Grid container item style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+                            < Grid item  style={{display:"flex", flexDirection:"row", justifyContent:"flex-start"}}xs={2}>
+                               
                                 <Button variant="h5" color="inherit"  onClick={(e)=>{setToHomeScreen(true)}}>
                                     <WbSunnyIcon />
                                     Sol Solecito
                                 </Button>
                             </Grid>
 
-                            <Grid item xs={4} >
+                            <Grid item style={{display:"flex", flexDirection:"row", justifyContent:"center"}} xs={7} >
                                 <Button color="inherit" fontStyle='italic' fontFamily='Roboto' onClick={(e)=>{setToCreateEvent(true)}} >Creacion de evento</Button>
                             </Grid>
 
-                            <Grid item xs={2}>
+                            <Grid item style={{display:"flex", flexDirection:"row", justifyContent:"flex-end"}} xs={2}>
                                 <div display ="flex">
                                     <Button  aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
                                         <PersonIcon/>Mi cuenta {props.userInfo.alias}
@@ -130,7 +125,7 @@ function Header(props) {
                                 </div>
                             </Grid>
 
-                            <Grid item xs={2}  >
+                            <Grid item style={{display:"flex", flexDirection:"row", justifyContent:"flex-end"}} xs={1}  >
                                 <Button color="inherit" onClick={(e)=>{setToSignIn(true)}}>Desconectar</Button>
                             </Grid>
                         </Grid>

@@ -64,7 +64,7 @@ function EventsSavedScreen(props){
                     {eventList.map((event,i)=>{              
                     // console.log("---------props de event dans EventsSavedScreen",event);
 
-                        return  <Grid key={i} style={{marginBottom:50, marginRight:20}}>
+                        return  <Grid key={i} xs={12} sm={6} md={4} lg={3} xl={3} style={{marginBottom:50, marginRight:20}}>
                                     <EventCard style={{marginBottom:50}}
                                             key={i}
                                             event={event}

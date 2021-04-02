@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 function EventCard(props) {
 
   console.log("---------props de EventCard venant de HomeScreen",props);
+  let displayImage="https://www.a7la-home.com/wp-content/uploads/2019/10/Icebreaker-Games-for-Kids-1106108363-768x525.jpg"
 
 
   // composant material ui
@@ -167,9 +168,7 @@ if (toMyEvent===true){
 
 
 
-
-
-
+  
 
 
 
@@ -218,7 +217,12 @@ if (toMyEvent===true){
 
       <CardMedia
         className={classes.media}
-        image = {props.event.image[0]}
+        // image = {props.event.image[0]}
+        image = {
+          props.event.image.length===0 ?
+          displayImage
+          : props.event.image[0]
+        }
         
         // image = 'https://images.unsplash.com/photo-1590850093323-ccc35c610511?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80'
         // image = 'https://123cartes.com/wp-content/uploads/2016/05/carte-joyeux-anniversaire-confettis.jpg'
