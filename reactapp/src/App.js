@@ -14,7 +14,7 @@ import HomeScreen from './Pages/HomeScreen';
 import CreateEvent from './Pages/CreateEvent';
 import EventScreen from './Pages/EventScreen';
 import ProfilScreen from './Pages/ProfilScreen';
-import MyEventScreen from './Pages/MyEventScreen';
+import MyEventScreen from './Pages/MyEventScreen'; 
 import EventsSavedScreen from './Pages/EventsSavedScreen';
 
 import Footer from './Pages/Components/Footer';

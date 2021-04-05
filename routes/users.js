@@ -10,6 +10,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+
+
+
+
+
+
+
+
+
+
 // post signUp inscription
 router.post('/signUp',async function(req, res, next){
 
@@ -61,6 +71,18 @@ res.json({saveUser,result,token,error})
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 // post signIn se logger
 router.post('/signIn',async function(req, res, next){
 
@@ -97,6 +119,17 @@ router.post('/signIn',async function(req, res, next){
 
 res.json({login,user,token,error})
 });
+
+
+
+
+
+
+
+
+
+
+
 
 router.put('/updateOneUser', async function(req,res,next){
   console.log("--------req.body",req.body);

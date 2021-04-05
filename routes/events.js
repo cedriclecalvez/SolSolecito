@@ -9,6 +9,8 @@ const userModel = require('../models/user');
 
 
 
+
+
 // route pour créer un évènement
 router.post('/createEvent', async function(req, res, next){
     console.log("-----------req.body createEvent",req.body);
@@ -73,6 +75,10 @@ res.json({saveEvent,result});
 
 
 
+
+
+
+
 // route pour changer des infos d'un évènement
 router.put('/updateEvent', async function(req,res,next){
     console.log("-----------req.body route updateEvent",req.body);
@@ -114,6 +120,10 @@ res.json({newEvent})
 
 
 
+
+
+
+
 // route pour suuprimer un évènement de la base de données
 // autre solution : passer le isvisible a false
 router.delete('/deleteEvent', async function(req, res, next){
@@ -131,6 +141,11 @@ res.json({resultDelete})
 
 
 
+
+
+
+
+
 // renoyer tous les events
 router.get('/getAllEvents', async function(req, res, next){
 
@@ -139,6 +154,12 @@ router.get('/getAllEvents', async function(req, res, next){
 
 res.json({allEvents})
 })
+
+
+
+
+
+
 
 
 
@@ -165,6 +186,12 @@ router.post('/getMyEvents', async function(req, res, next) {
 
     res.json({myEventCreated})
 })
+
+
+
+
+
+
 
 
 
@@ -207,6 +234,12 @@ router.put('/updateParticipantsEvent', async function(req,res,next){
 
 
 
+
+
+
+
+
+
 // route pour avoir tous mes events sauvés ou je me suis inscrit avec les miens
 router.post('/allMyEventsSaved', async function(req, res, next) {
     // console.log("---------req.body route allMyEventsSaved",req.body);
@@ -223,6 +256,11 @@ router.post('/allMyEventsSaved', async function(req, res, next) {
 
 
 module.exports = router;
+
+
+
+
+
 
 
 
